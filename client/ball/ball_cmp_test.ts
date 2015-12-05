@@ -1,16 +1,16 @@
 import {
   it,
-  describe,
   expect,
+  describe,
   injectAsync,
   TestComponentBuilder
 } from 'angular2/testing';
 
-import {AppCmp} from './app.js';
+import {BallCmp} from './ball_cmp.js';
 
-describe('app', () => {
+describe('ball-cmp', () => {
   it('should have the cmp created correctly', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-    return tcb.createAsync(AppCmp).then((fixture) => {
+    return tcb.createAsync(BallCmp).then((fixture) => {
       fixture.detectChanges();
 
       let compiled = fixture.debugElement.nativeElement;
