@@ -1,0 +1,12 @@
+html, body {
+  min-height: 100%;
+}
+
+body {
+  background-color: #f1f2f3;
+}
+
+@font-face {
+    font-family: "munro";
+    src: url("./fonts/munro/munro.ttf");
+}

@@ -6,11 +6,11 @@ import {
   TestComponentBuilder
 } from 'angular2/testing';
 
-import {PlayerCmp} from './player_cmp.js';
+import {PlayerOneCmp} from './player_one_cmp.js';
 
-describe('player-cmp', () => {
+describe('player-one-cmp', () => {
   it('should create the cmp correctly', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-    return tcb.createAsync(PlayerCmp).then((fixture) => {
+    return tcb.createAsync(PlayerOneCmp).then((fixture) => {
       fixture.detectChanges();
 
       let compiled = fixture.debugElement.nativeElement;

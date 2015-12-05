@@ -1,9 +1,17 @@
 main {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: relative;
   background-color: #000;
-  z-index: 1;
+  height: 700px;
+  width: 1200px;
+  border: 1px solid #fff;
+  margin: 0 auto;
+}
+
+#net {
+  position: absolute;
+  left: 600px;
+  width: 1px;
+  height: 100%;
+  border: 1px dashed #fff;
+  margin-top: -15px
 }

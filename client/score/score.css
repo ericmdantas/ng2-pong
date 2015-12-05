@@ -1,0 +1,22 @@
+#score {
+  position: absolute;
+  width: 500px;
+  top: 5px;
+  color: #fff;
+  text-align: center;
+  font-size: 50px;
+  left: 360px;
+}
+
+[class^="player"] {
+    font-family: "munro";
+    color: goldenrod;
+}
+
+.player-one-score {
+  margin-right: 20px;
+}
+
+.player-two-score {
+  margin-left: 100px;
+}
