@@ -1,0 +1,43 @@
+{
+  "name": "ng2-pong",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node server.js",
+    "test-client": "karma start karma.conf.js",
+    "test-server": "mocha server/**/*_test.js --reporter min --recursive --require babel-core/register",
+    "test": "npm run test-server && npm run test-client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericmdantas/ng2-pong.git"
+  },
+  "keywords": [
+    "pong",
+    "ng2"
+  ],
+  "author": "Eric Mendes Dantas <ericdantas0@gmail.com> (https://github.com/ericmdantas)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ericmdantas/ng2-pong/issues"
+  },
+  "homepage": "https://github.com/ericmdantas/ng2-pong#readme",
+  "dependencies": {
+    "angular2": "^2.0.0-alpha.47",
+    "babel-core": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "reflect-metadata": "^0.1.2",
+    "systemjs": "^0.19.6"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "jasmine": "^2.4.1",
+    "karma": "^0.13.15",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.6",
+    "mocha": "^2.3.4",
+    "sinon": "^1.17.2"
+  }
+}
