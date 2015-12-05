@@ -12,5 +12,5 @@ import {TableCmp} from './table/table.js';
   directives: [TableCmp]
 })
 export class AppCmp {
-
+  
 }
