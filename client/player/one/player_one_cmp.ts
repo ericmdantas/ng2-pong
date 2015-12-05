@@ -6,41 +6,62 @@ import {
 } from 'angular2/angular2';
 
 import {Player} from '../player_model.js';
+import {PlayerBase} from '../player_base.js';
+import {TableConstants} from '../../table/table_constants.js';
 
 @Component({
   selector: 'player-one-cmp',
   templateUrl: 'client/player/one/player_one.html',
-  styleUrls: ['client/player/one/player_one.css']
+  styleUrls: ['client/player/one/player_one.css'],
+  host: {
+    '(window:keydown)': 'keyPressedHandler($event)'
+  }
 })
-export class PlayerOneCmp implements OnInit {
-  INIT_POS_Y: number = 111;
-  MOVE_PACE: number = 10;
-  posY: number = this.INIT_POS_Y;
+export class PlayerOneCmp extends PlayerBase implements OnInit {
+  UP: number = 38;
+  DOWN: number = 40;
+  MOVE_PACE: number = 20;
   _player: HTMLDivElement;
 
   constructor(@Inject(ElementRef) private _el: ElementRef) {
-
+    super();
   }
 
   ngOnInit() {
     this._player = this._el.nativeElement.getElementsByTagName('div')[0];
+    this._updatePos();
+  }
 
-    this._updatePos(this.INIT_POS_Y);
+  keyPressedHandler(ev: KeyboardEvent) {
+    if (ev.which === this.UP) {
+      return this.moveUp();
+    }
+
+    if (ev.which === this.DOWN) {
+      return this.moveDown();
+    }
   }
 
   moveUp() {
     this.posY -= this.MOVE_PACE;
-
-    this._updatePos(this.posY);
+    this._updatePos();
   }
 
   moveDown() {
     this.posY += this.MOVE_PACE;
-
-    this._updatePos(this.posY);
+    this._updatePos();
   }
 
-  private _updatePos(pos: number) {
-    this._player.style.top = `${pos}px`;
+  private _updatePos() {
+    if (this.posY > TableConstants.MAX_HEIGHT) {
+      this.posY = TableConstants.MAX_HEIGHT;
+    }
+    else {
+      if (this.posY < TableConstants.MIN_HEIGHT) {
+        this.posY = TableConstants.MIN_HEIGHT;
+      }
+    }
+
+    this._player.style.top = `${this.posY}px`;
   }
 }

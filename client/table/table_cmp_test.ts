@@ -31,38 +31,4 @@ describe('table-cmp', () => {
       });
     }));
   });
-
-  describe('keyPressedHandler', () => {
-    it('should call _up', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-      return tcb.createAsync(TableCmp).then((fixture) => {
-        fixture.detectChanges();
-
-        let instance = fixture.debugElement.componentInstance;
-
-        spyOn(instance, '_up').and.callFake(() => {});
-        spyOn(instance, '_down').and.callFake(() => {});
-
-        instance.keyPressedHandler(<KeyboardEvent>{which: 38});
-
-        expect(instance._up).toHaveBeenCalled();
-        expect(instance._down).not.toHaveBeenCalled();
-      });
-    }));
-
-    it('should call _down', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-      return tcb.createAsync(TableCmp).then((fixture) => {
-        fixture.detectChanges();
-
-        let instance = fixture.debugElement.componentInstance;
-
-        spyOn(instance, '_up').and.callFake(() => {});
-        spyOn(instance, '_down').and.callFake(() => {});
-
-        instance.keyPressedHandler(<KeyboardEvent>{which: 40});
-
-        expect(instance._up).not.toHaveBeenCalled();
-        expect(instance._down).toHaveBeenCalled();
-      });
-    }));
-  });
 });

@@ -27,8 +27,11 @@ describe('player-two-cmp', () => {
         let instance = fixture.debugElement.componentInstance;
 
         expect(instance.INIT_POS_Y).toBe(111);
-        expect(instance.MOVE_PACE).toBe(10);
+        expect(instance.MOVE_PACE).toBe(30);
         expect(instance.posY).toBe(111);
+        expect(instance.UP).toBe(38);
+        expect(instance.DOWN).toBe(40);
+        expect(instance.NEXT_ANIMATION_TIME).toBe(300);
       });
     }));
   });

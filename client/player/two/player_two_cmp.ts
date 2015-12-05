@@ -6,40 +6,62 @@ import {
 } from 'angular2/angular2';
 
 import {Player} from '../player_model.js';
+import {PlayerBase} from '../player_base.js';
+import {TableConstants} from '../../table/table_constants.js';
 
 @Component({
   selector: 'player-two-cmp',
   templateUrl: 'client/player/two/player_two.html',
   styleUrls: ['client/player/two/player_two.css']
 })
-export class PlayerTwoCmp implements OnInit {
-  INIT_POS_Y: number = 111;
-  MOVE_PACE: number = 10;
-  posY: number = this.INIT_POS_Y;
+export class PlayerTwoCmp extends PlayerBase implements OnInit {
+  NEXT_ANIMATION_TIME: number = 300;
+  MOVE_PACE: number = 20;
+  _window: Window = window;
   _player: HTMLDivElement;
 
   constructor(@Inject(ElementRef) private _el: ElementRef) {
-
+    super();
   }
 
   ngOnInit() {
     this._player = this._el.nativeElement.getElementsByTagName('div')[0];
 
+    this._moveRandomly();
   }
 
   moveUp() {
     this.posY -= this.MOVE_PACE;
-
-    this._updatePos(this.posY);
+    this._updatePos();
   }
 
   moveDown() {
     this.posY += this.MOVE_PACE;
-
-    this._updatePos(this.posY);
+    this._updatePos();
   }
 
-  private _updatePos(pos: number) {
-    this._player.style.top = `${pos}px`;
+  private _updatePos() {
+    if (this.posY > TableConstants.MAX_HEIGHT) {
+      this.posY = TableConstants.MAX_HEIGHT;
+    }
+    else {
+      if (this.posY < TableConstants.MIN_HEIGHT) {
+        this.posY = TableConstants.MIN_HEIGHT;
+      }
+    }
+
+    this._player.style.top = `${this.posY}px`;
+  }
+
+  private _moveRandomly() {
+      this._window.setInterval(() => {
+        this._window.requestAnimationFrame(() => {
+          this._rollDice() ? this.moveUp() : this.moveDown();
+        });
+      }, this.NEXT_ANIMATION_TIME);
+  }
+
+  private _rollDice():boolean {
+    return !!(~~(Math.random() * 2));
   }
 }
