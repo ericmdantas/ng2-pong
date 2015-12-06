@@ -16,7 +16,7 @@ import {TableConstants} from '../../table/table_constants.js';
 })
 export class PlayerTwoCmp extends PlayerBase implements OnInit {
   NEXT_ANIMATION_TIME: number = 300;
-  MOVE_PACE: number = 20;
+  MOVE_PACE: number = 50;
   _window: Window = window;
   _player: HTMLDivElement;
 
@@ -28,30 +28,7 @@ export class PlayerTwoCmp extends PlayerBase implements OnInit {
     this._player = this._el.nativeElement.getElementsByTagName('div')[0];
 
     this._moveRandomly();
-  }
-
-  moveUp() {
-    this.posY -= this.MOVE_PACE;
-    this._updatePos();
-  }
-
-  moveDown() {
-    this.posY += this.MOVE_PACE;
-    this._updatePos();
-  }
-
-  private _updatePos() {
-    if (this.posY > TableConstants.MAX_HEIGHT) {
-      this.posY = TableConstants.MAX_HEIGHT;
-    }
-    else {
-      if (this.posY < TableConstants.MIN_HEIGHT) {
-        this.posY = TableConstants.MIN_HEIGHT;
-      }
-    }
-
-    this._player.style.top = `${this.posY}px`;
-  }
+  }  
 
   private _moveRandomly() {
       this._window.setInterval(() => {

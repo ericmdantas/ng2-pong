@@ -30,7 +30,7 @@ describe('ball-cmp', () => {
         expect(instance.INIT_POS_X).toBe(333);
         expect(instance.INIT_POS_Y).toBe(50);
         expect(instance.MOVE_PACE).toBe(10);
-        expect(instance.NEXT_ANIMATION_TIME).toBe(99);
+        expect(instance.NEXT_ANIMATION_TIME).toBe(33);
         expect(instance.posX).toBe(333);
         expect(instance.posY).toBe(50);
       });

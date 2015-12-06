@@ -13,4 +13,4 @@ System.register(['angular2/angular2', 'client/app.js'], function(exports_1) {
         }
     }
 });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=client.js.map

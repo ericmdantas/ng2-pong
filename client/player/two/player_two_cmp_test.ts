@@ -27,7 +27,7 @@ describe('player-two-cmp', () => {
         let instance = fixture.debugElement.componentInstance;
 
         expect(instance.INIT_POS_Y).toBe(111);
-        expect(instance.MOVE_PACE).toBe(30);
+        expect(instance.MOVE_PACE).toBe(50);
         expect(instance.posY).toBe(111);
         expect(instance.UP).toBe(38);
         expect(instance.DOWN).toBe(40);
@@ -37,7 +37,7 @@ describe('player-two-cmp', () => {
   });
 
   describe('moveUp', () => {
-    it('should call _updatePos with 91', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+    it('should call _updatePos with 101', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
       return tcb.createAsync(PlayerTwoCmp).then((fixture) => {
         fixture.detectChanges();
 
@@ -47,11 +47,12 @@ describe('player-two-cmp', () => {
 
         instance.moveUp();
 
-        expect(instance._updatePos).toHaveBeenCalledWith(91);
+        expect(instance._updatePos).toHaveBeenCalled();
+        expect(instance.posY).toBe(101);
       });
     }));
 
-    it('should call _updatePos with 51', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
+    it('should call _updatePos with 71', injectAsync([TestComponentBuilder], (tcb: TestComponentBuilder) => {
       return tcb.createAsync(PlayerTwoCmp).then((fixture) => {
         fixture.detectChanges();
 
@@ -64,7 +65,9 @@ describe('player-two-cmp', () => {
         instance.moveUp();
         instance.moveUp();
 
-        expect(instance._updatePos).toHaveBeenCalledWith(61);
+        expect(instance._updatePos).toHaveBeenCalled();
+
+        expect(instance.posY).toBe(71);
       });
     }));
   });
@@ -80,7 +83,9 @@ describe('player-two-cmp', () => {
 
         instance.moveDown();
 
-        expect(instance._updatePos).toHaveBeenCalledWith(121);
+        expect(instance._updatePos).toHaveBeenCalled();
+
+        expect(instance.posY).toBe(121);
       });
     }));
 
@@ -97,7 +102,9 @@ describe('player-two-cmp', () => {
         instance.moveDown();
         instance.moveDown();
 
-        expect(instance._updatePos).toHaveBeenCalledWith(151);
+        expect(instance._updatePos).toHaveBeenCalled();
+
+        expect(instance.posY).toBe(151);
       });
     }));
   });
