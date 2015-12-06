@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node server.js",
+    "start": "live-server",
     "test": "karma start karma.conf.js"
   },
   "repository": {

@@ -20,12 +20,14 @@ export class BallCmp implements OnInit {
 
   INIT_POS_X: number = 333;
   INIT_POS_Y: number = 50;
-  MOVE_PACE: number = 10;
+  MOVE_PACE: number = 1;
   NEXT_ANIMATION_TIME: number = 33;
   posX: number = this.INIT_POS_X;
   posY: number = this.INIT_POS_Y;
   _ball: HTMLDivElement;
   _window: Window = window;
+  _movHorizontal = 'left';
+  _movVertical = 'up';
 
   constructor(@Inject(ElementRef) private _el: ElementRef) {
 
@@ -43,12 +45,15 @@ export class BallCmp implements OnInit {
     let _leftyId = this._window.setInterval(() => {
       this._window.requestAnimationFrame(() => {
         this.posX -= this.MOVE_PACE;
+
         this._ball.style.left = this.posX + 'px';
 
-        if (this.posX < TableConstants.MIN_WIDTH) {
+        this.moveVertical();
+
+        if (this._rightScored()) {
           this._window.clearInterval(_leftyId);
-          this.moveRight();
           this.rightSideScores.next(null);
+          this.moveRight();
         }
       });
     }, this.NEXT_ANIMATION_TIME);
@@ -58,14 +63,57 @@ export class BallCmp implements OnInit {
     let _rightyId = this._window.setInterval(() => {
       this._window.requestAnimationFrame(() => {
         this.posX += this.MOVE_PACE;
+
         this._ball.style.left = this.posX + 'px';
 
-        if (this.posX > TableConstants.MAX_WIDTH) {
+        this.moveVertical();
+
+        if (this._leftScored()) {
           this._window.clearInterval(_rightyId);
-          this.moveLeft();
           this.leftSideScores.next(null);
+          this.moveLeft();
         }
       });
     }, this.NEXT_ANIMATION_TIME);
+  }
+
+  moveUp() {
+    this.posY -= this.MOVE_PACE;
+    this._ball.style.top = this.posY + 'px';
+
+    if (this.posY < TableConstants.MIN_HEIGHT) {
+      this.posY += this.MOVE_PACE;
+      this._ball.style.top = this.posY + 'px';
+      this._movVertical = 'down';
+    }
+  }
+
+  moveDown() {
+    this.posY += this.MOVE_PACE;
+    this._ball.style.top = this.posY + 'px';
+
+    if (this.posY > TableConstants.MAX_HEIGHT_BALL) {
+      this.posY -= this.MOVE_PACE;
+      this._ball.style.top = this.posY + 'px';
+      this._movVertical = 'up';
+    }
+  }
+
+  moveVertical() {
+    if (this._movVertical === 'up') {
+      return this.moveUp();
+    }
+
+    if (this._movVertical === 'down') {
+      return this.moveDown();
+    }
+  }
+
+  private _leftScored():boolean {
+    return this.posX > TableConstants.MAX_WIDTH;
+  }
+
+  private _rightScored():boolean {
+    return this.posX < TableConstants.MIN_WIDTH;
   }
 }
