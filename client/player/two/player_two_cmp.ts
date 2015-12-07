@@ -34,11 +34,13 @@ export class PlayerTwoCmp extends PlayerBase implements OnInit {
   }
 
   private _moveRandomly() {
-      this._window.setInterval(() => {
-        this._window.requestAnimationFrame(() => {
-          this._rollDice() ? this.moveUp() : this.moveDown();
-        });
+    this._rollDice() ? this.moveUp() : this.moveDown();
+
+    this._window.requestAnimationFrame(() => {
+      this._window.setTimeout(() => {
+        this._moveRandomly();
       }, this.NEXT_ANIMATION_TIME);
+    });
   }
 
   private _rollDice():boolean {
