@@ -1,7 +1,7 @@
 #player-two {
   position: absolute;
   right: 30px;
-  width: 8px;
+  width: 10px;
   height: 100px;
   z-index: 3;
   background-color: #fff;

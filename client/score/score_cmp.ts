@@ -10,7 +10,7 @@ import {Player} from '../player/players.js';
   selector: 'score-cmp',
   templateUrl: 'client/score/score.html',
   styleUrls: ['client/score/score.css'],
-  providers: [ScoreService, Player]
+  providers: [ScoreService]
 })
 export class ScoreCmp {
   playerOne: Player = new Player();

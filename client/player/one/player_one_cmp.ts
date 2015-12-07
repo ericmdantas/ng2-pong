@@ -2,10 +2,11 @@ import {
   Component,
   Inject,
   ElementRef,
+  EventEmitter,
+  Output,
   OnInit
 } from 'angular2/angular2';
 
-import {Player} from '../player_model.js';
 import {PlayerBase} from '../player_base.js';
 import {TableConstants} from '../../table/table_constants.js';
 
@@ -18,6 +19,8 @@ import {TableConstants} from '../../table/table_constants.js';
   }
 })
 export class PlayerOneCmp extends PlayerBase implements OnInit {
+  @Output('p1PosY') p1PosY: EventEmitter<{x: number, y: number}> = new EventEmitter();
+
   UP: number = 38;
   DOWN: number = 40;
   MOVE_PACE: number = 20;
@@ -40,5 +43,20 @@ export class PlayerOneCmp extends PlayerBase implements OnInit {
     if (ev.which === this.DOWN) {
       return this.moveDown();
     }
-  }  
+  }
+
+  private _updatePos() {
+    if (this.posY > TableConstants.MAX_HEIGHT) {
+      this.posY = TableConstants.MAX_HEIGHT;
+    }
+    else {
+      if (this.posY < TableConstants.MIN_HEIGHT) {
+        this.posY = TableConstants.MIN_HEIGHT;
+      }
+    }
+
+    this.p1PosY.next({x: 30, y: this.posY});
+
+    this._player.style.top = `${this.posY}px`;
+  }
 }

@@ -13,5 +13,5 @@ import {ScoreCmp} from '../score/score.js';
   directives: [ScoreCmp, PlayerOneCmp, PlayerTwoCmp, BallCmp]
 })
 export class TableCmp {
-  
+
 }

@@ -1,12 +1,12 @@
 <main>
   <score-cmp #scoreCmp></score-cmp>
 
-  <player-one-cmp #playerOneCmp></player-one-cmp>
+  <player-one-cmp #playerOneCmp (p1-pos-y)="ballCmp.checkP1Pos($event)"></player-one-cmp>
 
   <div id="net"></div>
 
   <ball-cmp #ballCmp (left-side-scores)="scoreCmp.playerOneScored()"
                      (right-side-scores)="scoreCmp.playerTwoScored()"></ball-cmp>
 
-  <player-two-cmp #playerTwoCmp></player-two-cmp>
+  <player-two-cmp #playerTwoCmp (p2-pos-y)="ballCmp.checkP2Pos($event)"></player-two-cmp>
 </main>

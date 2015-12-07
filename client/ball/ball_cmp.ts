@@ -20,7 +20,7 @@ export class BallCmp implements OnInit {
 
   INIT_POS_X: number = 333;
   INIT_POS_Y: number = 50;
-  MOVE_PACE: number = 1;
+  MOVE_PACE: number = 10;
   NEXT_ANIMATION_TIME: number = 33;
   posX: number = this.INIT_POS_X;
   posY: number = this.INIT_POS_Y;
@@ -28,6 +28,8 @@ export class BallCmp implements OnInit {
   _window: Window = window;
   _movHorizontal = 'left';
   _movVertical = 'up';
+  p1PosY: {x: number, y: number};
+  p2PosY: {x: number, y: number};
 
   constructor(@Inject(ElementRef) private _el: ElementRef) {
 
@@ -50,7 +52,7 @@ export class BallCmp implements OnInit {
 
         this.moveVertical();
 
-        if (this._rightScored()) {
+        if (this._p1Defended() || this._rightScored()) {
           this._window.clearInterval(_leftyId);
           this.rightSideScores.next(null);
           this.moveRight();
@@ -68,7 +70,7 @@ export class BallCmp implements OnInit {
 
         this.moveVertical();
 
-        if (this._leftScored()) {
+        if (this._p2Defended() || this._leftScored()) {
           this._window.clearInterval(_rightyId);
           this.leftSideScores.next(null);
           this.moveLeft();
@@ -77,7 +79,7 @@ export class BallCmp implements OnInit {
     }, this.NEXT_ANIMATION_TIME);
   }
 
-  moveUp() {
+  private _moveUp() {
     this.posY -= this.MOVE_PACE;
     this._ball.style.top = this.posY + 'px';
 
@@ -88,7 +90,7 @@ export class BallCmp implements OnInit {
     }
   }
 
-  moveDown() {
+  private _moveDown() {
     this.posY += this.MOVE_PACE;
     this._ball.style.top = this.posY + 'px';
 
@@ -101,11 +103,11 @@ export class BallCmp implements OnInit {
 
   moveVertical() {
     if (this._movVertical === 'up') {
-      return this.moveUp();
+      return this._moveUp();
     }
 
     if (this._movVertical === 'down') {
-      return this.moveDown();
+      return this._moveDown();
     }
   }
 
@@ -115,5 +117,57 @@ export class BallCmp implements OnInit {
 
   private _rightScored():boolean {
     return this.posX < TableConstants.MIN_WIDTH;
+  }
+
+  checkP1Pos(p: {x: number, y: number}) {
+    this.p1Pos = p;
+  }
+
+  checkP2Pos(p: {x: number, y: number}) {
+    this.p2Pos = p;
+  }
+
+  private _p1Defended():boolean {
+    let _validY = 100;
+    let _validX = 20;
+    let _rX = false;
+    let _rY = false;
+
+    while (_validY || _validX) {
+      if (this.posY === (this.p1Pos.y + _validY)) {
+        _rY = true;
+      }
+
+      if (this.posX === (this.p1Pos.x + _validX)) {
+        _rX = true;
+      }
+
+      _validY = _validY === 0 ? 0 : --_validY;
+      _validX = _validX === 0 ? 0 : --_validX;
+    }
+
+    return _rY && _rX;
+  }
+
+  private _p2Defended():boolean {
+    let _validY = 100;
+    let _validX = 20;
+    let _rX = false;
+    let _rY = false;
+
+    while (_validY || _validX) {
+      if (this.posY === (this.p2Pos.y + _validY)) {
+        _rY = true;
+      }
+
+      if (this.posX === (this.p2Pos.x + _validX)) {
+        _rX = true;
+      }
+
+      _validY = _validY === 0 ? 0 : --_validY;
+      _validX = _validX === 0 ? 0 : --_validX;
+    }
+
+    return _rY && _rX;
   }
 }
