@@ -55,7 +55,7 @@ export class PlayerTwoCmp extends PlayerBase implements OnInit {
       }
     }
 
-    this.p2PosY.next({x: 30, y: this.posY});
+    this.p2PosY.next({x: TableConstants.MAX_WIDTH - 30, y: this.posY});
 
     this._player.style.top = `${this.posY}px`;
   }

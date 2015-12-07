@@ -28,8 +28,8 @@ export class BallCmp implements OnInit {
   _window: Window = window;
   _movHorizontal = 'left';
   _movVertical = 'up';
-  p1PosY: {x: number, y: number};
-  p2PosY: {x: number, y: number};
+  p1Pos: {x: number, y: number};
+  p2Pos: {x: number, y: number};
 
   constructor(@Inject(ElementRef) private _el: ElementRef) {
 
@@ -52,7 +52,12 @@ export class BallCmp implements OnInit {
 
         this.moveVertical();
 
-        if (this._p1Defended() || this._rightScored()) {
+        if (this._playerDefended(this.p1Pos)) {
+          this._window.clearInterval(_leftyId);
+          this.moveRight();
+        }
+
+        if (this._rightScored()) {
           this._window.clearInterval(_leftyId);
           this.rightSideScores.next(null);
           this.moveRight();
@@ -70,10 +75,16 @@ export class BallCmp implements OnInit {
 
         this.moveVertical();
 
-        if (this._p2Defended() || this._leftScored()) {
+        if (this._playerDefended(this.p2Pos)) {
           this._window.clearInterval(_rightyId);
-          this.leftSideScores.next(null);
           this.moveLeft();
+        }
+
+        if (this._leftScored()) {
+          this._window.clearInterval(_rightyId);
+          this.moveLeft();
+
+          this.leftSideScores.next(null);
         }
       });
     }, this.NEXT_ANIMATION_TIME);
@@ -127,40 +138,18 @@ export class BallCmp implements OnInit {
     this.p2Pos = p;
   }
 
-  private _p1Defended():boolean {
+  private _playerDefended(p: {x: number, y: number}):boolean {
     let _validY = 100;
     let _validX = 20;
     let _rX = false;
     let _rY = false;
 
     while (_validY || _validX) {
-      if (this.posY === (this.p1Pos.y + _validY)) {
+      if (this.posY === (p.y + _validY)) {
         _rY = true;
       }
 
-      if (this.posX === (this.p1Pos.x + _validX)) {
-        _rX = true;
-      }
-
-      _validY = _validY === 0 ? 0 : --_validY;
-      _validX = _validX === 0 ? 0 : --_validX;
-    }
-
-    return _rY && _rX;
-  }
-
-  private _p2Defended():boolean {
-    let _validY = 100;
-    let _validX = 20;
-    let _rX = false;
-    let _rY = false;
-
-    while (_validY || _validX) {
-      if (this.posY === (this.p2Pos.y + _validY)) {
-        _rY = true;
-      }
-
-      if (this.posX === (this.p2Pos.x + _validX)) {
+      if (this.posX === (p.x + _validX)) {
         _rX = true;
       }
 
