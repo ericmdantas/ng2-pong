@@ -1,6 +1,6 @@
 import {
   Component
-} from 'angular2/angular2';
+} from 'angular2/core';
 
 import {PlayerOneCmp, PlayerTwoCmp} from '../player/players.js';
 import {BallCmp} from '../ball/ball.js';

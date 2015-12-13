@@ -1,7 +1,7 @@
 import {
   Component,
   Inject
-} from 'angular2/angular2';
+} from 'angular2/core';
 
 import {ScoreService} from './score_service.js';
 import {Player} from '../player/players.js';

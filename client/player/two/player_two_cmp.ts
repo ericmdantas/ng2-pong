@@ -5,7 +5,7 @@ import {
   OnInit,
   EventEmitter,
   Output
-} from 'angular2/angular2';
+} from 'angular2/core';
 
 import {PlayerBase} from '../player_base.js';
 import {TableConstants} from '../../table/table_constants.js';

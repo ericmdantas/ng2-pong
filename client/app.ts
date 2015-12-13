@@ -1,6 +1,6 @@
 import {
   Component
-} from 'angular2/angular2';
+} from 'angular2/core';
 
 import {TableCmp} from './table/table.js';
 
@@ -12,5 +12,5 @@ import {TableCmp} from './table/table.js';
   directives: [TableCmp]
 })
 export class AppCmp {
-  
+
 }
